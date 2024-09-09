@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스케줄 수정 - <%= schedule.location %></title>
+</head>
+<body>
+    <h1>스케줄 수정 - <%= schedule.location %></h1>
+
+    <% schedule.schedule.forEach(slot => { %>
+        <div>
+            <h2><%= slot.time %> - <%= slot.people.join(', ') %></h2>
+            <form action="/schedules/<%= schedule.location %>/update" method="POST">
+                <input type="hidden" name="time" value="<%= slot.time %>">
+                <label for="newPerson">새로운 인원 추가:</label>
+                <input type="text" name="newPerson" required>
+                <button type="submit">추가</button>
+            </form>
+        </div>
+        <hr>
+    <% }) %>
+
+    <a href="/schedules">스케줄 목록으로 돌아가기</a>
+</body>
+</html>
