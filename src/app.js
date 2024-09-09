@@ -11,8 +11,11 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set('views', path.join(__dirname, 'views'));
+// 정적 파일 제공
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'src/views'));
+
 
 
 // 정적 파일 서빙 설정
