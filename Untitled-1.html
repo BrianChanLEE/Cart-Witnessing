@@ -1,0 +1,164 @@
+// server.js
+const app = require('./src/app');
+const port = process.env.PORT || 4040;
+
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
+
+
+
+// src/app.js
+const express = require('express');
+const bodyParser = require('body-parser');
+const scheduleRoutes = require('./routes/scheduleRoutes');
+
+const app = express();
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+});
+app.use(bodyParser.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
+
+
+// 스케줄 관련 라우트 사용
+app.use('/', scheduleRoutes);
+
+module.exports = app;
+
+
+
+//scheduleRouters.js
+const express = require("express");
+const router = express.Router();
+
+// 메인 페이지 라우트
+router.get("/main", (req, res) => {
+    res.render("main", { title: "스케줄 관리 시스템" });
+  });
+  
+  // 기본 홈 라우트 (메인 페이지로 리다이렉트)
+  router.get("/", (req, res) => {
+    res.redirect("/main");
+  });
+
+  module.exports = router;
+
+
+
+
+//views/main.ejs
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      <title>YangJae</title>
+      <style>
+          body {
+              font-family: Arial, sans-serif;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              min-height: 100vh;
+              margin: 0;
+              background: linear-gradient(135deg, #000428, #004e92);
+              perspective: 1500px;
+              overflow-x: hidden;
+              overflow-y: auto;
+              position: relative;
+          }
+          .stars {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background: transparent url('https://cms-imgp.jw-cdn.org/img/p/202018410/univ/art/202018410_univ_lsr_lg.jpg') center center/cover no-repeat;
+              filter: blur(2px) brightness(0.6);
+              animation: twinkle 4s ease-in-out infinite;
+              z-index: 0;
+          }
+          .container {
+              text-align: center;
+              padding: 40px;
+              background: rgba(255, 255, 255, 0.15);
+              border-radius: 20px;
+              box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+              transform: rotateY(20deg) rotateX(10deg);
+              animation: float 8s ease-in-out infinite;
+              z-index: 1;
+              backdrop-filter: blur(10px);
+              cursor: pointer;
+              max-width: 90%;
+              width: 400px;
+              height: auto;
+          }
+          h1 {
+              color: #f8f8f8;
+              font-size: 2.2em;
+              text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+              margin: 0;
+          }
+          p {
+              color: #eeeeee;
+              font-size: 1.2em;
+              font-style: italic;
+              text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+              margin-top: 10px;
+          }
+          @keyframes float {
+              0% { transform: rotateY(20deg) rotateX(10deg) translateY(0); }
+              50% { transform: rotateY(20deg) rotateX(10deg) translateY(-10px); }
+              100% { transform: rotateY(20deg) rotateX(10deg) translateY(0); }
+          }
+          @keyframes glow {
+              0% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
+              100% { text-shadow: 0 0 30px rgba(255, 255, 255, 1); }
+          }
+          @keyframes twinkle {
+              0%, 100% { opacity: 0.8; }
+              50% { opacity: 1; }
+          }
+
+          /* 반응형 처리를 위한 미디어 쿼리 */
+          @media (max-width: 768px) {
+              body {
+                  padding: 20px;
+                  height: auto;
+              }
+              .container {
+                  width: 100%;
+                  max-width: 90%;
+                  transform: none;
+              }
+              h1 {
+                  font-size: 1.8em;
+              }
+              p {
+                  font-size: 1em;
+              }
+          }
+      </style>
+  </head>
+  <body>
+      <div class="stars"></div>
+      <div class="container" id="clickBox">
+          <h1>YangJae Cart Witnessing</h1>
+          <p>Ac 5:19~21,42</p>
+      </div>
+  
+      <script>
+          const clickBox = document.getElementById('clickBox');
+  
+          clickBox.addEventListener('click', () => {
+              window.location.href = '/add-schedule'; // 페이지 이동
+          });
+      </script>
+  </body>
+  </html>
+
+  
+  http://localhost:4040/main 정상적으로 구동됨 
+  vercel에 배포후 https://yangjae.vercel.app/에가면 404:NOT_FOUND 확인됨 문제해결

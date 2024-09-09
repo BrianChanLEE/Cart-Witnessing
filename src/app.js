@@ -12,7 +12,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 
+// 정적 파일 서빙 설정
+app.use(express.static('public'));
 // 스케줄 관련 라우트 사용
 app.use('/', scheduleRoutes);
+
 
 module.exports = app;
