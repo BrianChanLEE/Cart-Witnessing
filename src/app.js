@@ -10,9 +10,7 @@ app.use((err, req, res, next) => {
 });
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
-app.get('*', (req, res) => {
-    res.status(404).send('Page not found');
-});
+
 
 // 스케줄 관련 라우트 사용
 app.use('/', scheduleRoutes);
