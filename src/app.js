@@ -1,6 +1,8 @@
 // src/app.js
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
+
 const scheduleRoutes = require('./routes/scheduleRoutes');
 
 const app = express();
@@ -9,6 +11,7 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 app.use(bodyParser.urlencoded({ extended: true }));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 
