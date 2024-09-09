@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스케줄 입력</title>
+</head>
+<body>
+    <h1>스케줄 입력</h1>
+    <form action="/add-schedule" method="POST">
+        <label for="location">위치:</label>
+        <input type="text" id="location" name="location" required><br><br>
+
+        <label for="startTime">시작 시간 (24시간 형식):</label>
+        <input type="time" id="startTime" name="startTime" required><br><br>
+
+        <label for="people">사람명 (쉼표로 구분):</label>
+        <input type="text" id="people" name="people" required><br><br>
+
+        <button type="submit">추가</button>
+    </form>
+
+    <a href="/schedules">스케줄 목록 보기</a>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스케줄 목록</title>
+</head>
+<body>
+    <h1>스케줄 목록</h1>
+
+    <% if (schedules.length > 0) { %>
+        <% schedules.forEach(scheduleGroup => { %>
+            <h2>장소: <%= scheduleGroup.location %></h2>
+            <% scheduleGroup.schedule.forEach(entry => { %>
+                <p><%= entry.time %> - <%= entry.people.join(', ') %></p>
+            <% }); %>
+            <hr>
+        <% }); %>
+    <% } else { %>
+        <p>등록된 스케줄이 없습니다.</p>
+    <% } %>
+
+    <a href="/add-schedule">스케줄 추가하기</a>
+</body>
+</html>
