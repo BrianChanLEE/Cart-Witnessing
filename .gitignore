@@ -2,6 +2,6 @@
 # Keep environment variables out of version control
 
 node_modules/
-
+.chche/
 .vercel
 Untitled-1.html
