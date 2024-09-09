@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,18 +9,94 @@
 <body>
     <h1>스케줄 목록</h1>
 
-    <% if (schedules.length > 0) { %>
-        <% schedules.forEach(scheduleGroup => { %>
-            <h2>장소: <%= scheduleGroup.location %></h2>
-            <% scheduleGroup.schedule.forEach(entry => { %>
+    <% schedules.forEach(scheduleGroup => { %>
+        <h2>장소: <%= scheduleGroup.location %></h2>
+        <% if (Array.isArray(scheduleGroup.schedule.schedule)) { %>
+            <% scheduleGroup.schedule.schedule.forEach(entry => { %>
                 <p><%= entry.time %> - <%= entry.people.join(', ') %></p>
             <% }); %>
-            <hr>
-        <% }); %>
-    <% } else { %>
-        <p>등록된 스케줄이 없습니다.</p>
-    <% } %>
-
+        <% } else { %>
+            <p>스케줄 데이터가 없습니다.</p>
+        <% } %>
+        <hr>
+    <% }); %>
+    
     <a href="/add-schedule">스케줄 추가하기</a>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스케줄 목록</title>
+    <style>
+        /* Flex 컨테이너 설정 */
+        .schedule-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* 스케줄 아이템 스타일 설정 */
+        .schedule-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+            flex: 1 1 33.33%; /* 기본적으로 3개씩 배치 */
+        }
+
+        /* 작은 화면에서 2개씩 배치 */
+        @media (max-width: 800px) {
+            .schedule-item {
+                flex: 1 1 50%; /* 50%로 너비 설정하여 2개씩 배치 */
+            }
+        }
+
+        /* 더 작은 화면에서 1개씩 배치 */
+        @media (max-width: 500px) {
+            .schedule-item {
+                flex: 1 1 100%; /* 100%로 너비 설정하여 1개씩 배치 */
+            }
+        }
+
+        .schedule-item h2 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .schedule-item p {
+            margin: 5px 0;
+        }
+
+        .schedule-add {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>스케줄 목록</h1>
+
+    <!-- Flex 컨테이너에 스케줄 그룹 배치 -->
+    <div class="schedule-container">
+        <% schedules.forEach(scheduleGroup => { %>
+            <div class="schedule-item">
+                <h2>장소: <%= scheduleGroup.location %></h2>
+                <% if (Array.isArray(scheduleGroup.schedule.schedule)) { %>
+                    <% scheduleGroup.schedule.schedule.forEach(entry => { %>
+                        <p><%= entry.time %> - <%= entry.people.join(', ') %></p>
+                    <% }); %>
+                <% } else { %>
+                    <p>스케줄 데이터가 없습니다.</p>
+                <% } %>
+            </div>
+        <% }); %>
+    </div>
+
+    <div class="schedule-add">
+        <a href="/add-schedule">스케줄 추가하기</a>
+    </div>
 </body>
 </html>

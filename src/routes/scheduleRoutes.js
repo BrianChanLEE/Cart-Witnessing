@@ -32,4 +32,15 @@ router.get('/schedules', (req, res) => {
     }
 });
 
+// 메인 페이지 라우트
+router.get('/main', (req, res) => {
+    res.render('main', { title: '스케줄 관리 시스템' });
+});
+
+// 기본 홈 라우트 (메인 페이지로 리다이렉트)
+router.get('/', (req, res) => {
+    res.redirect('/main');
+});
+
+
 module.exports = router;
