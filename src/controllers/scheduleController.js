@@ -6,10 +6,10 @@ const { generateSchedule } = require('../utils/utils');
 // 스케줄 목록을 저장할 배열
 let schedules = [];
 
-// // TTL 설정: 스케줄을 2시간 동안 유지 (밀리초 단위)
-// const SCHEDULE_TTL = 2 * 60 * 60 * 1000; // 2시간
+// TTL 설정: 스케줄을 2시간 동안 유지 (밀리초 단위)
+const SCHEDULE_TTL = 2 * 60 * 60 * 1000; // 2시간
 
-const SCHEDULE_TTL = 1 * 60 * 1000; // 1분
+// const SCHEDULE_TTL = 1 * 60 * 1000; // 1분
 // 스케줄 입력 폼 페이지 렌더링
 const showAddSchedulePage = (req, res) => {
     res.render('add-schedule');
