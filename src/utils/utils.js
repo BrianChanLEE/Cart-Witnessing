@@ -32,9 +32,9 @@ const generateSchedule = (startTime, people) => {
     // 참여자가 8명일 경우 15분 간격, 4명 이상 8명 이하일 경우 20분 간격, 4명 이하일 경우 30분 간격 설정
     if (people.length === 8) {
         intervalMinutes = 15;
-    } else if (people.length >= 4 && people.length < 8) {
+    } else if (people.length > 4 && people.length < 8) {
         intervalMinutes = 20;
-    } else if (people.length < 4) {
+    } else if (people.length <= 4) {
         intervalMinutes = 30;
     } else {
         return { error: "참여자 수가 너무 많습니다. 최대 8명까지만 허용됩니다." };
