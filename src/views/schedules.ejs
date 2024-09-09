@@ -1,4 +1,4 @@
-<!-- 
+<!-- <!-- <!-- 
 
 
 <!DOCTYPE html>
@@ -142,7 +142,7 @@
 </body>
 </html> -->
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -300,6 +300,67 @@
             <a href="/add-schedule">스케줄 추가하기</a>
             <a href="/edit-schedule">업데이트</a>
         </div>
+    </div>
+</body>
+</html>  --> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스케줄 목록</title>
+    <style>
+        .schedule-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .schedule-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .schedule-box:hover {
+            background-color: rgba(100, 149, 237, 0.8);
+        }
+
+        .schedule-box h2 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .schedule-box p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>스케줄 목록</h1>
+
+    <div class="schedule-container">
+        <% schedules.forEach(scheduleGroup => { %>
+            <a href="/schedules/<%= scheduleGroup.location %>/edit">
+                <div class="schedule-box">
+                    <h2>장소: <%= scheduleGroup.location %></h2>
+                    <% scheduleGroup.schedule.forEach(entry => { %>
+                        <p><%= entry.time %> - <%= entry.people.join(', ') %></p>
+                    <% }); %>
+                </div>
+            </a>
+        <% }); %>
+    </div>
+
+    <div class="actions">
+        <a href="/add-schedule"><button>스케줄 추가하기</button></a>
     </div>
 </body>
 </html>
