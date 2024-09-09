@@ -312,18 +312,22 @@
         <div class="schedule-container">
             <% schedules.forEach(scheduleGroup => { %>
                 <a href="/schedules/<%= scheduleGroup.location %>/edit"></a>
-                <div class="schedule-box">
+                <div class="schedule-item">
                     <h2>장소: <%= scheduleGroup.location %></h2>
-                    <% scheduleGroup.schedule.forEach(entry => { %>
-                        <p><%= entry.time %> - <%= entry.people.join(', ') %></p>
-                    <% }); %>
+                    <% if (Array.isArray(scheduleGroup.schedule.schedule)) { %>
+                        <% scheduleGroup.schedule.schedule.forEach(entry => { %>
+                            <p><%= entry.time %> - <%= entry.people.join(', ') %></p>
+                        <% }); %>
+                    <% } else { %>
+                        <p class="no-data">스케줄 데이터가 없습니다.</p> <!-- 스타일 추가 -->
+                    <% } %>
                 </div>
-            </a>
-        <% }); %>
-    </div>
+            <% }); %>
+        </div>
 
-    <div class="schedule-add">
-        <a href="/add-schedule">스케줄 추가하기</a>
+        <div class="schedule-add">
+            <a href="/add-schedule">스케줄 추가하기</a>
+        </div>
     </div>
 </body>
 </html>
