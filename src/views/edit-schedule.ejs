@@ -12,11 +12,18 @@
     <% schedule.schedule.forEach(slot => { %>
         <div>
             <h2><%= slot.time %> - <%= slot.people.join(', ') %></h2>
+            <!-- 인원 추가 폼 -->
             <form action="/schedules/<%= schedule.location %>/update" method="POST">
                 <input type="hidden" name="time" value="<%= slot.time %>">
                 <label for="newPerson">새로운 인원 추가:</label>
                 <input type="text" name="newPerson" required>
                 <button type="submit">추가</button>
+            </form>
+
+            <!-- 삭제 버튼 -->
+            <form action="/schedules/<%= schedule.location %>/delete" method="POST" style="margin-top: 10px;">
+                <input type="hidden" name="time" value="<%= slot.time %>">
+                <button type="submit">삭제</button>
             </form>
         </div>
         <hr>

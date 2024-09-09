@@ -81,10 +81,70 @@ const showSchedules = (req, res) => {
 
 
 
+// 스케줄 수정 페이지 렌더링
+const showEditSchedulePage = (req, res) => {
+    const { location } = req.params;
+    const schedule = schedules.find(s => s.location === location);
+
+    if (!schedule) {
+        return res.status(404).send('해당 장소의 스케줄을 찾을 수 없습니다.');
+    }
+
+    res.render('edit-schedule', { schedule });
+};
+
+// 스케줄 업데이트 처리
+const updateSchedule = (req, res) => {
+    const { location } = req.params;
+    const { time, newPerson } = req.body;
+
+    // 해당 장소의 스케줄 찾기
+    let schedule = schedules.find(s => s.location === location);
+
+    if (!schedule) {
+        return res.status(404).send('해당 장소의 스케줄을 찾을 수 없습니다.');
+    }
+
+    // 해당 시간대의 스케줄 찾기
+    let timeSlot = schedule.schedule.find(slot => slot.time === time);
+
+    if (!timeSlot) {
+        return res.status(404).send('해당 시간대의 스케줄을 찾을 수 없습니다.');
+    }
+
+    // 새로운 인원 추가
+    timeSlot.people.push(newPerson);
+
+    // 스케줄 수정 후 목록 페이지로 리디렉션
+    res.redirect('/schedules');
+};
+
+// 스케줄 삭제 처리
+const deleteSchedule = (req, res) => {
+    const { location } = req.params;
+    const { time } = req.body;
+
+    // 해당 장소의 스케줄 찾기
+    let schedule = schedules.find(s => s.location === location);
+
+    if (!schedule) {
+        return res.status(404).send('해당 장소의 스케줄을 찾을 수 없습니다.');
+    }
+
+    // 해당 시간대의 스케줄 삭제
+    schedule.schedule = schedule.schedule.filter(slot => slot.time !== time);
+
+    // 스케줄 수정 후 목록 페이지로 리디렉션
+    res.redirect('/schedules');
+};
+
 
 
 module.exports = {
     showAddSchedulePage,
     createSchedule,
     showSchedules,
+    showEditSchedulePage,
+    updateSchedule,
+    deleteSchedule
 };
