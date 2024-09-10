@@ -55,7 +55,7 @@ router.get("/schedules", (req, res) => {
 // 스케줄 수정 페이지로 이동
 router.get(
   "/schedules/:location/edit",
-  scheduleController.showEditSchedulePage
+  scheduleController.showEditSchedePage
 );
 
 // 스케줄 업데이트 처리
