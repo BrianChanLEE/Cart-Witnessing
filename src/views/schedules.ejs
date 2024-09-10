@@ -76,6 +76,14 @@
             color: #eee;
             font-size: 1.1em;
         }
+        /* 스케줄 데이터 없음 메시지 */
+        .schedule-item p.no-data {
+            color: #ff8080;
+            font-size: 1.2em;
+            font-style: italic;
+            margin: 20px 0;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+        }
         .schedule-add {
             margin-top: 20px;
             display: flex;
@@ -141,6 +149,7 @@
         <h1>스케줄 목록</h1>
         <div class="schedule-container">
             <% schedules.forEach(scheduleGroup => { %>
+                <a href="/schedules/<%= scheduleGroup.location %>/edit"></a>
                 <div class="schedule-item">
                     <h2>장소: <%= scheduleGroup.location %></h2>
                     <% if (Array.isArray(scheduleGroup.schedule.schedule)) { %>
@@ -148,8 +157,8 @@
                             <p><%= entry.time %> - <%= entry.people.join(', ') %></p>
                         <% }); %>
                     <% } else { %>
-                        <p>스케줄 데이터가 없습니다.</p>
-                    <% } %>
+                        <p class="no-data">스케줄 데이터가 없습니다.</p> <!-- 스타일 추가 -->
+                    <!-- <% } %>
                 </div>
             <% }); %>
         </div>
@@ -159,7 +168,7 @@
         </div>
     </div>
 </body>
-</html>   -->
+</html> --> -->
 
 
 <!DOCTYPE html>
@@ -226,6 +235,11 @@
             padding: 20px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             flex: 1;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .schedule-item:hover {
+            background-color: rgba(255, 255, 255, 0.4);
         }
         .schedule-item h2 {
             margin: 0;
@@ -311,17 +325,18 @@
         <h1>스케줄 목록</h1>
         <div class="schedule-container">
             <% schedules.forEach(scheduleGroup => { %>
-                <a href="/schedules/<%= scheduleGroup.location %>/edit"></a>
-                <div class="schedule-item">
-                    <h2>장소: <%= scheduleGroup.location %></h2>
-                    <% if (Array.isArray(scheduleGroup.schedule.schedule)) { %>
-                        <% scheduleGroup.schedule.schedule.forEach(entry => { %>
-                            <p><%= entry.time %> - <%= entry.people.join(', ') %></p>
-                        <% }); %>
-                    <% } else { %>
-                        <p class="no-data">스케줄 데이터가 없습니다.</p> <!-- 스타일 추가 -->
-                    <% } %>
-                </div>
+                <a href="/schedules/<%= scheduleGroup.location %>/edit">
+                    <div class="schedule-item">
+                        <h2>장소: <%= scheduleGroup.location %></h2>
+                        <% if (Array.isArray(scheduleGroup.schedule.schedule)) { %>
+                            <% scheduleGroup.schedule.schedule.forEach(entry => { %>
+                                <p><%= entry.time %> - <%= entry.people.join(', ') %></p>
+                            <% }); %>
+                        <% } else { %>
+                            <p class="no-data">스케줄 데이터가 없습니다.</p> <!-- 스타일 추가 -->
+                        <% } %>
+                    </div>
+                </a>
             <% }); %>
         </div>
 
