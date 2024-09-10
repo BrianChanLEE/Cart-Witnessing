@@ -90,6 +90,11 @@ const showEditSchedulePage = (req, res) => {
         return res.status(404).send('해당 장소의 스케줄을 찾을 수 없습니다.');
     }
 
+    // schedule.schedule이 배열이 아닌 경우 처리
+    if (!Array.isArray(schedule.schedule)) {
+        return res.status(500).send('스케줄 데이터가 올바르지 않습니다.');
+    }
+
     res.render('edit-schedule', { schedule });
 };
 
